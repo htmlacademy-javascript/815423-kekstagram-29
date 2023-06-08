@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Руслан Рысбеков](https://up.htmlacademy.ru/javascript/29/user/815423).
-* Наставник: `Неизвестно`.
+* Студент: [Руслан Рысбеков](https://htmlacademy.ru/profile/id815423).
+* Наставник: [Павел Позняк](https://htmlacademy.ru/profile/id907403).
 
 ---
 
