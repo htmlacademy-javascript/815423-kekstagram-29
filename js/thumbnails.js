@@ -24,9 +24,7 @@ const createThumbnail = (element) => {
 
 const renderThumbnails = (drawThumbnails) => {
   pictureContainerElement.querySelectorAll('.picture').forEach((element) => element.remove());
-  drawThumbnails.forEach((thumbnail) => {
-    createThumbnail(thumbnail);
-  });
+  drawThumbnails.forEach((thumbnail) => createThumbnail(thumbnail));
   pictureContainerElement.append(pictureListFragment);
 };
 

@@ -11,7 +11,6 @@ let currentFilter = FilterType.DEFAULT;
 let photos = [];
 
 const getSortRandom = () => Math.random() - 0.5;
-
 const getSortingDiscussed = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
 
 const getSortedPhotos = () => {
