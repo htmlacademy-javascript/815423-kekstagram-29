@@ -6,7 +6,7 @@ import { showSuccessMessage, showErrorMessage } from './massage.js';
 import { debounce } from './util.js';
 import { showingFilteredPhotos } from './filter-photos.js';
 
-//отправка формы
+//функция отправка формы
 setOnFormSubmit(async (data) =>{
   try {
     await sendData(data); //отправляем данные
