@@ -17,11 +17,3 @@ setOnFormSubmit(async (data) =>{
   }
 });
 
-try {
-  const data = await getData(); //получаем данные
-  const debouncedRenderThumbnails = debounce(renderThumbnails);
-  renderThumbnails(data); // отрисовываем полученные данные при первоночальной загрузке
-  showingFilteredPhotos(data, debouncedRenderThumbnails);//сортируем и отрисовываем полученные данные
-} catch (error) {
-  showAlert(error.message); //вывод ошибки
-}
