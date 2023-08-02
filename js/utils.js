@@ -1,15 +1,15 @@
-const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+const bigFotoElement = document.querySelector('.big-picture');
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+//функция для чистоты кода
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isModalTarget = (evt) => evt.target === bigFotoElement;
 
-const shuffleArray = (elements) => {
-  for (let i = elements.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = elements[i];
-    elements[i] = elements[j];
-    elements[j] = temp;
-  }
-  return elements;
+const debounce = (cb, timeDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeDelay);
+  };
 };
 
-export {getRandomNumber, getRandomArrayElement, shuffleArray};
+export { isEscapeKey, isModalTarget, debounce };
