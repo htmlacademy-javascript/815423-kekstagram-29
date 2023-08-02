@@ -16,42 +16,19 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper--error'
 });
 
-/**
- * находим элементы в фокусе
- * @returns {boolean} — true, если попадает в фокус
- */
 const isInputFocus = () => {
   if (document.activeElement === hashtagsText || document.activeElement === commentText) {
     return true;
   }
 };
 
-/**
- * функция по определению хештега
- * @param {string} tags значение инпута
- * обрезаем пробелы, # отсоединяем по пробелу, массив с эл прошедшими проверку
- */
 const normalHashtag = (tags) => tags
   .trim().split(' ').filter((hashtag) => Boolean(hashtag.length));
 
-/**
- * Функция проверки введия невалидного хэш-тега
- * @param {string} value текущее значение поля
- * перебираем массив на заданные условия, возвращаем true или false
- * .match() возвращает получившиеся совпадения при сопоставлении строки с регулярным выражением
- */
 const validateInvalidHashtag = (value) => normalHashtag(value).every((item) => (item.match(VALID_HASHTAG)));
 
-/**
- * Функция проверки превышено количество хэш-тегов
- * @param {string} value текущее значение поля
- */
 const validateNumberOfHashtags = (value) => normalHashtag(value).length <= MAX_HASHTAGS;
 
-/**
- * Функция проверки хэш-теги повторяются
- * @param {string} value текущее значение поля
- */
 const validateRepeatedHashtags = (value) => {
   const tagArray = normalHashtag(value).map((tag) => tag.toLowerCase());
   return tagArray.length === new Set(tagArray).size;

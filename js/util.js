@@ -4,12 +4,6 @@ const bigFotoElement = document.querySelector('.big-picture'); //модальн�
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const isModalTarget = (evt) => evt.target === bigFotoElement;
 
-/**
- * устранение дребезга
- * @param cb
- * @param {number} timeDelay - задержка в миллисекундах
- * @returns
- */
 const debounce = (cb, timeDelay = 500) => {
   let timeoutId; //используем замыкания
   return (...rest) => {

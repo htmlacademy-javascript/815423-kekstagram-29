@@ -18,10 +18,6 @@ const submitBtn = uploadForm.querySelector('.img-upload__submit'); //кнопк�
 const photoEffectPreviews = document.querySelectorAll('.effects__preview'); //наложение эффекта на изображение
 const photoPreview = document.querySelector('.img-upload__preview img'); //загруженное фото для обрабоки
 
-/**
- * функция для закрытия подложки с помощью клавиатуры, за исключением, когда поле ввода в фокусе
- * @param {object} evt объект события
- */
 function onCloseOverlayKeydown (evt) {
   if (isEscapeKey(evt) && !(isInputFocus())) {
     evt.preventDefault();
@@ -29,9 +25,6 @@ function onCloseOverlayKeydown (evt) {
   }
 }
 
-/**
- * функция для открытия подложки
- */
 const openUserOverlay = () => {
   initSlider(); //бегунок слайдера
   initScale(); // маштаб
@@ -41,9 +34,6 @@ const openUserOverlay = () => {
   hideSlider(); //скрывается слайдер при первоночальном показе
 };
 
-/**
- * функция для закрытия подложки
- */
 function closeUserOverlay () {
   uploadForm.reset(); // восстанавливает стандартные значения
   resetScale(); //сброс эффектов маштаба
@@ -54,9 +44,6 @@ function closeUserOverlay () {
   document.removeEventListener('keydown', onCloseOverlayKeydown); //3. удалить обработчик событий при нажатии на клавишу
 }
 
-/**
- * Показ загруженного фото
- */
 const showUploadPhoto = () => {
   const file = uploadInput.files[0];
   const fileName = file.name.toLowerCase(); //приводим к одному регистру
@@ -89,26 +76,16 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-/**
- * функция по блокировке кнопки отправить
- */
 const blockSubmitBtn = () => {
   submitBtn.disabled = true;
   submitBtn.textContent = SubmitBtnText.BLOCK;
 };
 
-/**
- * функция по разблокировки кнопки отправить
- */
 const unblockSubmitBtn = () => {
   submitBtn.disabled = false;
   submitBtn.textContent = SubmitBtnText.UNBLOCK;
 };
 
-/**
- * отправка формы
- * @param {object} cb данные из формы
- */
 const setOnFormSubmit = (cb) => {
   uploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();

@@ -1,9 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-/**
- * Функция показывает сообщение при неудачной попытки получения данных с сервера
- * @param {string} message - сообщение об ошибке
- */
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '10';

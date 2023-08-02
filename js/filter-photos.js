@@ -10,23 +10,10 @@ const photosFilter = document.querySelector('.img-filters'); // фильтрац
 let currentFilter = FilterType.DEFAULT;
 let photos = []; //новый массив
 
-/**
- * сортировка случайных фото
- */
 const getSortRandom = () => Math.random() - 0.5;
 
-/**
- * сортировка обсуждаемых фото
- * @param {Array} photoA массив коментариев
- * @param {Array} photoB массив коментариев
- */
 const getSortingDiscussed = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
 
-
-/**
- * функция сортирующая фото по выбраному фильтру
- * @returns отсортированный массив фото
- */
 const getSortedPhotos = () => {
   switch(currentFilter) {
     case FilterType.RANDOM:
@@ -38,10 +25,6 @@ const getSortedPhotos = () => {
   }
 };
 
-/**
- * функция по  навешиванию клика по фильтрам сортировки
- * @param {*} cb с отрисоваными фото по выбранаму фильтру
- */
 const onClickFilter = (cb) => {
   photosFilter.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('img-filters__button') && evt.target.id !== currentFilter) { //клик по фильтру
@@ -56,11 +39,7 @@ const onClickFilter = (cb) => {
   });
 };
 document.removeEventListener('keydown', onClickFilter);
-/**
- * функция показывает фильтры
- * @param {Array} photosData - загруженные с сервера фото
- * @param {*} cb
- */
+
 const showingFilteredPhotos = (photosData, cb) =>{
   photosFilter.classList.remove('img-filters--inactive');
   photos = [...photosData]; //создаем новый массив и отдаем его наружу

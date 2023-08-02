@@ -4,10 +4,6 @@ const pictureContainerElement = document.querySelector('.pictures'); //ищем 
 const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture'); //ищем шаблон
 const pictureListFragment = document.createDocumentFragment();
 
-/**
- * Функция по отрисовки миниатюр
- * @param {Object} drawThumbnails - массив объектов
- */
 const renderThumbnails = (drawThumbnails) => {
   pictureContainerElement.querySelectorAll('.picture').forEach((element) => element.remove()); //удаление перересованных миниатюр для сортировки
   drawThumbnails.forEach((thumbnail) => { //перебираем эл массива отрисованных миниатюр

@@ -11,17 +11,10 @@ const bigFotoCloseElement = bigFotoElement.querySelector('.big-picture__cancel')
 let comments;
 let commentsShown = 0;
 
-/**
- * функция по созданию живой строки
- */
 const fillCommentsCounter = () => {
   commentsCount.innerHTML = `${commentsShown} из <span class="comments-count">${comments.length}</span> комментариев`;
 };
 
-/**
- * функция по показу кнопки загрузить еще
- * @returns
- */
 const setButtonState = () => {
   if (commentsShown >= comments.length) {
     btnDownloadMore.classList.add('hidden');
@@ -30,11 +23,6 @@ const setButtonState = () => {
   btnDownloadMore.classList.remove('hidden');
 };
 
-/**
- * Функция по отрисовки одного комментария
- * @param {object} деструктуризация параметров обьекта данных
- * @returns возращаем шаблон одного коментария
- */
 const renderComment = ({avatar, name, message}) => {
   const comment = commentItem.cloneNode(true);
   const pictureComment = comment.querySelector('.social__picture');
@@ -44,9 +32,6 @@ const renderComment = ({avatar, name, message}) => {
   return comment;
 };
 
-/**
- * Функция по отрисовке коментариев
- */
 const renderComments = () => {
   const fragment = document.createDocumentFragment();
   const currentComments = comments.slice(commentsShown, commentsShown + SHOW_COMMENTS_STEP); //показ выбранных коментариеы из массива
@@ -58,19 +43,11 @@ const renderComments = () => {
   fillCommentsCounter(); //показ живой строки
 };
 
-/**
- * функция по отбражению коментов, при нажатии на кнопку
- * @param {object} evt объект события
- */
 function onShowMoreButtonClick (evt) {
   evt.preventDefault();
   renderComments();
 }
 
-/**
- * функция для закрытия модального окна с помощью клавиатуры
- * @param {object} evt объект события
- */
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -78,10 +55,6 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-/**
- * функция для закрытия модального окна при клике по документу
- * @param {object} evt объект события
- */
 const onBodyClick = (evt) => {
   if (isModalTarget(evt)) {
     evt.preventDefault();
@@ -89,9 +62,6 @@ const onBodyClick = (evt) => {
   }
 };
 
-/**
- * функция по открытию модального окна
- */
 const openUserBigPhoto = () => {
   bigFotoElement.classList.remove('hidden'); // 1. Показать окно
   document.body.classList.add('modal-open');//2. отключаем скрол под подложкой
@@ -100,9 +70,6 @@ const openUserBigPhoto = () => {
   btnDownloadMore.addEventListener('click', onShowMoreButtonClick); // 5. Добавить обработчики для кнопки загрузить еще
 };
 
-/**
- * функция по закрытию модального окна
- */
 function closeUserBigFoto () {
   bigFotoElement.classList.add('hidden'); // 1. Скрыть окно
   document.body.classList.remove('modal-open');// 2. включить скрол
@@ -116,10 +83,6 @@ bigFotoCloseElement.addEventListener('click', () => {
   closeUserBigFoto();
 });
 
-/**
- * функция по наполнению большой картинки данными
- * @param {object} деструктуризация параметров обьекта данных
- */
 const fillBigPhoto = ({url, likes, description, messages}) => {
   const bigPhoto = bigFotoElement.querySelector('.big-picture__img img');
   bigPhoto.src = url; //Адрес изображения
@@ -129,10 +92,6 @@ const fillBigPhoto = ({url, likes, description, messages}) => {
   renderComments(messages); //отрисованные коменты
 };
 
-/**
- * функция по созданию фото с коментариями
- * @param {object} data массив обектов данных
- */
 const displayBigPhoto = (data) => {
   commentsList.innerHTML = ''; //очищаем список коментариев
   comments = data.comments; //созданному массиву присваиваем массив комментариев из объекта
