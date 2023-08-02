@@ -9,19 +9,19 @@ import { showingFilteredPhotos } from './filter-photos.js';
 //отправка формы
 setOnFormSubmit(async (data) =>{
   try {
-    await sendData(data);
-    closeUserOverlay();
-    showSuccessMessage();
+    await sendData(data); //отправляем данные
+    closeUserOverlay(); //закрываем подложку
+    showSuccessMessage(); //сообщение об успехе
   } catch {
-    showErrorMessage();
+    showErrorMessage(); //сообщение об неудаче
   }
 });
 
 try {
-  const data = await getData();
+  const data = await getData(); //получаем данные
   const debouncedRenderThumbnails = debounce(renderThumbnails);
-  renderThumbnails(data);
-  showingFilteredPhotos(data, debouncedRenderThumbnails);
+  renderThumbnails(data); // отрисовываем полученные данные при первоночальной загрузке
+  showingFilteredPhotos(data, debouncedRenderThumbnails);//сортируем и отрисовываем полученные данные
 } catch (error) {
-  showAlert(error.message);
+  showAlert(error.message); //вывод ошибки
 }
