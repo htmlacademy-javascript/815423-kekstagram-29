@@ -1,14 +1,15 @@
-const bigFotoElement = document.querySelector('.big-picture'); //модальное окно
+const DELAY = 500;
 
-//функция для чистоты кода
+const bigPhotoElement = document.querySelector('.big-picture');
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
-const isModalTarget = (evt) => evt.target === bigFotoElement;
+const isModalTarget = (evt) => evt.target === bigPhotoElement;
 
-const debounce = (cb, timeDelay = 500) => {
-  let timeoutId; //используем замыкания
+const debounce = (cb, timeDelay = DELAY) => {
+  let timeoutId;
   return (...rest) => {
-    clearTimeout(timeoutId); //удаляем предыдущий таймаут
-    timeoutId = setTimeout(() => cb.apply(this, rest), timeDelay); //устанавливаем новый таймаут с вызовом cb на ту же задержку
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeDelay);
   };
 };
 
