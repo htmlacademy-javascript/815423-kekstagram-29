@@ -1,28 +1,35 @@
-import {displayBigPhoto} from './modal-big-photos.js';
+import { displayBigPhoto } from './modal-big-photos.js';
 
-const pictureContainerElement = document.querySelector('.pictures'); //ищем куда складывать фото
-const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture'); //ищем шаблон
+const pictureContainerElement = document.querySelector('.pictures');
+const pictureTemplateElement = document
+  .querySelector('#picture')
+  .content.querySelector('.picture');
+
 const pictureListFragment = document.createDocumentFragment();
 
-const renderThumbnails = (drawThumbnails) => {
-  pictureContainerElement.querySelectorAll('.picture').forEach((element) => element.remove()); //удаление перересованных миниатюр для сортировки
-  drawThumbnails.forEach((thumbnail) => { //перебираем эл массива отрисованных миниатюр
-    const pictureElement = pictureTemplateElement.cloneNode(true); //клонирование элемента со всеми вложенностями
+const createThumbnail = (element) => {
+  const pictureElement = pictureTemplateElement.cloneNode(true);
 
-    const {url, description, likes, comments} = thumbnail; //деструктуризация объекта
-    const img = pictureElement.querySelector('.picture__img'); //добавляем фото
-    img.src = url;
-    img.alt = description;
-    pictureElement.querySelector('.picture__likes').textContent = likes;
-    pictureElement.querySelector('.picture__comments').textContent = comments.length;
-    pictureContainerElement.append(pictureElement); //вставляем на страницу
+  const { url, description, likes, comments } = element;
+  const imgElement = pictureElement.querySelector('.picture__img');
+  imgElement.src = url;
+  imgElement.alt = description;
+  pictureElement.querySelector('.picture__likes').textContent = likes;
+  pictureElement.querySelector('.picture__comments').textContent =
+    comments.length;
+  pictureContainerElement.append(pictureElement);
 
-    pictureElement.addEventListener('click', () => { //создаем замыкание
-      displayBigPhoto(thumbnail);
-    });
-
+  pictureElement.addEventListener('click', () => {
+    displayBigPhoto(element);
   });
+};
+
+const renderThumbnails = (drawThumbnails) => {
+  pictureContainerElement
+    .querySelectorAll('.picture')
+    .forEach((element) => element.remove());
+  drawThumbnails.forEach((thumbnail) => createThumbnail(thumbnail));
   pictureContainerElement.append(pictureListFragment);
 };
 
-export {renderThumbnails};
+export { renderThumbnails };

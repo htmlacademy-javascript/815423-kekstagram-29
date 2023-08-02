@@ -6,23 +6,21 @@ import { showSuccessMessage, showErrorMessage } from './massage.js';
 import { debounce } from './util.js';
 import { showingFilteredPhotos } from './filter-photos.js';
 
-//отправка формы
 setOnFormSubmit(async (data) =>{
   try {
-    await sendData(data); //отправляем данные
-    closeUserOverlay(); //закрываем подложку
-    showSuccessMessage(); //сообщение об успехе
+    await sendData(data);
+    closeUserOverlay();
+    showSuccessMessage();
   } catch {
-    showErrorMessage(); //сообщение об неудаче
+    showErrorMessage();
   }
 });
 
 try {
-  const data = await getData(); //получаем данные
+  const data = await getData();
   const debouncedRenderThumbnails = debounce(renderThumbnails);
-  renderThumbnails(data); // отрисовываем полученные данные при первоночальной загрузке
-  showingFilteredPhotos(data, debouncedRenderThumbnails);//сортируем и отрисовываем полученные данные
+  renderThumbnails(data);
+  showingFilteredPhotos(data, debouncedRenderThumbnails);
 } catch (error) {
-  showAlert(error.message); //вывод ошибки
+  showAlert(error.message);
 }
-

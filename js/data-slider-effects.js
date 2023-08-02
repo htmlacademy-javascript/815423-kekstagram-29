@@ -1,5 +1,3 @@
-// Модуль данных для фильтров фотографии словарь
-
 const sliderEffects = {
   none: {
     name: 'none',

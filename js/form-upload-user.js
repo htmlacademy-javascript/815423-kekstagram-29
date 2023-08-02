@@ -3,20 +3,20 @@ import { pristine, isInputFocus } from './form-validation.js';
 import { initSlider, hideSlider, resetEffect } from './slider.js';
 import { resetScale, initScale } from './scale.js';
 
-const FILE_TYPES = ['gif', 'webp', 'jpeg', 'png', 'avif', 'jpg', 'svg'];
+const FILE_TYPES = ['.gif', '.webp', '.jpeg', '.png', '.avif', '.jpg', '.svg'];
 
-const SubmitBtnText = { //текст на кнопке отправить
+const submitBtnElementText = {
   UNBLOCK: 'Сохранить',
   BLOCK: 'Сохраняю...'
 };
 
-const uploadForm = document.querySelector('.img-upload__form'); //форма загрузки
-const uploadOverlay = uploadForm.querySelector('.img-upload__overlay'); //подложка
-const uploadInput = uploadForm.querySelector('.img-upload__input'); //контрол загрузки файла
-const uploadCancel = uploadForm.querySelector('.img-upload__cancel'); //кнопка закрыть
-const submitBtn = uploadForm.querySelector('.img-upload__submit'); //кнопка отправить
-const photoEffectPreviews = document.querySelectorAll('.effects__preview'); //наложение эффекта на изображение
-const photoPreview = document.querySelector('.img-upload__preview img'); //загруженное фото для обрабоки
+const uploadFormElement = document.querySelector('.img-upload__form');
+const uploadOverlayElement = uploadFormElement.querySelector('.img-upload__overlay');
+const uploadInputElement = uploadFormElement.querySelector('.img-upload__input');
+const uploadCancelElement = uploadFormElement.querySelector('.img-upload__cancel');
+const submitBtnElement = uploadFormElement.querySelector('.img-upload__submit');
+const photoEffectPreviewsElement = document.querySelectorAll('.effects__preview');
+const photoPreviewElement = document.querySelector('.img-upload__preview img');
 
 function onCloseOverlayKeydown (evt) {
   if (isEscapeKey(evt) && !(isInputFocus())) {
@@ -26,75 +26,73 @@ function onCloseOverlayKeydown (evt) {
 }
 
 const openUserOverlay = () => {
-  initSlider(); //бегунок слайдера
-  initScale(); // маштаб
-  uploadOverlay.classList.remove('hidden'); // 1. Показать подложку
-  document.body.classList.add('modal-open');//2. отключаем скрол под подложкой
-  document.addEventListener('keydown', onCloseOverlayKeydown); // 3. Добавить обработчики для закрытия на клавишу
-  hideSlider(); //скрывается слайдер при первоночальном показе
+  initSlider();
+  initScale();
+  uploadOverlayElement.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onCloseOverlayKeydown);
+  hideSlider();
 };
 
 function closeUserOverlay () {
-  uploadForm.reset(); // восстанавливает стандартные значения
-  resetScale(); //сброс эффектов маштаба
-  resetEffect(); //сброс эффектов слайдера
-  pristine.reset(); //сброс ошибок pristine
-  uploadOverlay.classList.add('hidden'); // 1. Скрыть подложку
-  document.body.classList.remove('modal-open');// 2. включить скрол
-  document.removeEventListener('keydown', onCloseOverlayKeydown); //3. удалить обработчик событий при нажатии на клавишу
+  uploadFormElement.reset();
+  resetScale();
+  resetEffect();
+  pristine.reset();
+  uploadOverlayElement.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onCloseOverlayKeydown);
 }
 
 const showUploadPhoto = () => {
-  const file = uploadInput.files[0];
-  const fileName = file.name.toLowerCase(); //приводим к одному регистру
+  const file = uploadInputElement.files[0];
+  const fileName = file.name.toLowerCase();
 
-  const matchs = FILE_TYPES.some((extention) => fileName.endsWith(extention)); //проверка расширения файла .some() пройдемся по массиву с помошью .endsWith()
+  const matches = FILE_TYPES.some((extention) => fileName.endsWith(extention));
 
-  if (matchs) {
-    photoPreview.src = URL.createObjectURL(file); // метод URL.createObjectURL() делает ссылку на содержимое
-    photoEffectPreviews.forEach((preview) => {
-      preview.style.backgroundImage = `url(${photoPreview.src})`;
+  if (matches) {
+    const src = URL.createObjectURL(file);
+    photoPreviewElement.src = src;
+    photoEffectPreviewsElement.forEach((preview) => {
+      preview.style.backgroundImage = `url(${src})`;
     });
   }
 };
 
-//при клике на кнопку закрыть
-uploadCancel.addEventListener('click', () => {
+uploadCancelElement.addEventListener('click', () => {
   closeUserOverlay();
 });
 
-//открытие модалки при событии change
-uploadInput.addEventListener('change', () => {
+uploadInputElement.addEventListener('change', () => {
   openUserOverlay();
   showUploadPhoto();
 });
 
-//блокировка отпраки невалидной формы
-uploadForm.addEventListener('submit', (evt) => {
+uploadFormElement.addEventListener('submit', (evt) => {
   if(!pristine.validate()) {
     evt.preventDefault();
   }
 });
 
-const blockSubmitBtn = () => {
-  submitBtn.disabled = true;
-  submitBtn.textContent = SubmitBtnText.BLOCK;
+const blocksubmitBtnElement = () => {
+  submitBtnElement.disabled = true;
+  submitBtnElement.textContent = submitBtnElementText.BLOCK;
 };
 
-const unblockSubmitBtn = () => {
-  submitBtn.disabled = false;
-  submitBtn.textContent = SubmitBtnText.UNBLOCK;
+const unblocksubmitBtnElement = () => {
+  submitBtnElement.disabled = false;
+  submitBtnElement.textContent = submitBtnElementText.UNBLOCK;
 };
 
 const setOnFormSubmit = (cb) => {
-  uploadForm.addEventListener('submit', async (evt) => {
+  uploadFormElement.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmitBtn();
-      await cb(new FormData(uploadForm));
-      unblockSubmitBtn();
+      blocksubmitBtnElement();
+      await cb(new FormData(uploadFormElement));
+      unblocksubmitBtnElement();
     }
   });
 };
