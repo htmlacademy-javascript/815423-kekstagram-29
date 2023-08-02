@@ -2,7 +2,7 @@ import { renderThumbnails } from './thumbnails.js';
 import { setOnFormSubmit, closeUserOverlay} from './form-upload-user.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './alert.js';
-import { showSuccessMessage, showErrorMessage } from './massage.js';
+import { showSuccessMessage, showErrorMessage } from './message.js';
 import { debounce } from './util.js';
 import { showingFilteredPhotos } from './filter-photos.js';
 
