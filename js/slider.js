@@ -1,4 +1,4 @@
-import { sliderEffects } from './data-slider-effects.js';
+import { SliderEffects } from './data-slider-effects.js';
 
 const sliderEffectsListElement = document.querySelector('.effects__list');
 const effectValueElement = document.querySelector('.effect-level__value');
@@ -46,7 +46,7 @@ const resetEffect = () => {
 
 function onClickChangeEffect (evt) {
   resetEffect();
-  const effects = sliderEffects[evt.target.value];
+  const effects = SliderEffects[evt.target.value];
 
   if (effects.name === 'none') {
     photoPreviewElement.removeAttribute('style');

@@ -1,4 +1,4 @@
-const sliderEffects = {
+const SliderEffects = {
   none: {
     name: 'none',
   },
@@ -39,4 +39,4 @@ const sliderEffects = {
   }
 };
 
-export {sliderEffects};
+export {SliderEffects};
